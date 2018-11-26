@@ -10,6 +10,9 @@ Realiza la misma implementación de la tarea de la unidad 03 pero utilizando obj
  - Añadidas clase persona, lista y errores
  - Añadidos comentarios
 
+ ## Version 1.0.3
+ - Modificación clases errores
+ - Modificación de comentarios
 
  ## Version 2.0.0
  - Creacion carpeta Lista Ordenada

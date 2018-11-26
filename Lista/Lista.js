@@ -3,7 +3,7 @@
 /* Funciones que dependen de la pagina */
 var lista = new Lista();
 
-function addNumber(name,surname){ //Funcion que recoge el numero en el HTML y añadé el numero
+function addNumber(name,surname){ //Funcion que recoge la persona en el HTML y lo añadé al array
 	var error = document.getElementById ("error");
 	var list = document.getElementById ("list");
 	error.innerHTML = "";  
@@ -16,7 +16,7 @@ function addNumber(name,surname){ //Funcion que recoge el numero en el HTML y a�
  	}	
 }
 
-function pollNumber (){ //Funcion que borra un numero
+function pollNumber (){ //Funcion que borra una persona
 	var error = document.getElementById ("error");
 	var list = document.getElementById ("list");
 	list.innerHTML = "";  
@@ -32,21 +32,21 @@ function pollNumber (){ //Funcion que borra un numero
 
 //Objecto errores
 
-function BaseException() {}
+function BaseException() {} //Creo una clase
 BaseException.prototype = new Error(); //Herencia del objeto Error.
 BaseException.prototype.constructor = BaseException; //Definimos el constructor
 BaseException.prototype.toString = function(){
 	return this.name + ": " + this.message;
 };
 
-function NotPersonException(value) {
+function NotPersonException(value) { //Creo la clase notPerson 
 	this.name = "NotPersonException";
 	this.message = "No es un objecto persona: " + value;
 }
 NotPersonException.prototype = new BaseException(); //Heredamos de BaseException
 NotPersonException.prototype.constructor = NotPersonException;
 
-function IsFull(){
+function IsFull(){ //Creo la clase estaLleno
 	this.name = "IsFull";
 	this.message = "La lista esta llena. Tú no puedes añadir más elementos";
 }
@@ -67,8 +67,8 @@ var InputValidator = (function(){ // Función anónima que se ejecuta según se 
 				if (e instanceof NotPersonException) {
 					throw e; 
 				}				
-				else if (e instanceof IsFull) { //Recogemos la excepción NegativeNumberException si se ha producido
-					//re-throw
+				else if (e instanceof IsFull) { 
+				//Recogemos la excepción isFull si se ha producido re-throw
 					throw e;
 				}
 			}
@@ -76,14 +76,14 @@ var InputValidator = (function(){ // Función anónima que se ejecuta según se 
 	};
 	return InputValidator; //La función anónima devuelve el objeto creado.
 
-	//Función que valida si el dato es negativo.
+	//Función que valida si el dato es objeto persona.
 	function validateNotPerson(data){
 		if(!(elem instanceof Person)){
 			throw new NotPersonException(data);
 		}
 	}
 
-	//Función que valida si el dato es vacío
+	//Función que valida si un objeto esta lleno
 	function validateIsFull(obj){
 		if (obj.isFull()){ //Compruebo si la lista esta llena, si lo esta mando una expecion
 			throw new IsFull();
@@ -93,7 +93,7 @@ var InputValidator = (function(){ // Función anónima que se ejecuta según se 
 
 //Objecto Persona
 
-function Person(name, surname) {
+function Person(name, surname) { //Creo la clase persona con sus atributos
 	this.name = name; 
 	this.surname = surname; 
 	this.fullname = function(){
@@ -103,13 +103,14 @@ function Person(name, surname) {
 
 //Objecto lista
 
-function Lista() {
+function Lista() { //Creo la clase lista con el array que contrendran personas
 	var list = [];
-	var max_element_lista = 5;
+	var max_element_lista = 5; //Por defecto tendra 5 campos
 
+	//Funcion que podra modificar los elementos maximos de esa lista
 	this.setMaximo = function(value) { max_element_lista = value; };
 
-	this.isEmpty = function(){
+	this.isEmpty = function(){ //Funcion que comprueba si esta vacia
 		return (list.length === 0); 
 	};
 
@@ -121,7 +122,7 @@ function Lista() {
 		return list.length;
     };
 
-	this.add = function(elem){ //Funcion que añade un numero a la lista
+	this.add = function(elem){ //Funcion que añade una persona a la lista
 		InputValidator.validate(elem);
 		InputValidator.validate(this);
 		
@@ -129,22 +130,22 @@ function Lista() {
 		return this.size(); //Devuelvo la longitud del array
 	};
 
-	this.addAt = function(elem,index){ //Funcion que añade un numero a la posicion deseada
+	this.addAt = function(elem,index){ //Funcion que añade una persona a la posicion deseada
 		InputValidator.validate(elem);
 		InputValidator.validate(this);
 		if(index > this.size() || index <= -1){
 			throw "El indice esta fuera de los limites de la lista";
 		}else { //Si la lista sigue teniendo capacidad, hago un splice que añadirá 
-				//el numero al posicion deseada de la lista
+				//la persona al posicion deseada de la lista
 			list.splice(index, 0, elem);
 		}
 		return this.size(); //Devuelvo la longitud del array
 	};
 
-	this.get = function(index){ //Funcion que devuelve un numero en la posicion deseada
+	this.get = function(index){ //Funcion que devuelve una persona en la posicion deseada
 		if(index > this.size() || index <= -1){ //Si la posicion es mayor que la longitud del array mando una exepcion
 			throw "El indice esta fuera de los limites de la lista";
-		}else{ //Sino devuelvo el numero de la posicion deseada
+		}else{ //Sino devuelvo la persona de la posicion deseada
 			return list[index].fullname();
 		}
 	};
@@ -220,10 +221,10 @@ function Lista() {
 		var person;
 		if(index > this.size() || index <= -1){ //Si la posicion es mayor que la longitud del array mando una exepcion
 			throw "El indice esta fuera de los limites de la lista";
-		}else{ //Sino devuelvo el numero de la posicion deseada
+		}else{ //Sino devuelvo la persona de la posicion deseada
 			person = list.splice(index,1);
 		}
-		return person[0].fullname(); //Devuelvo el numero borrado
+		return person[0].fullname(); //Devuelvo la persona borrada
 	};
 	
 	this.removeElement = function (elem){ //Funcion que elemina un elemento buscandolo
