@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista</title>
+</head>
+<body>
+    <h1>Implementacion de una lista</h1>
+    <input type="text" id="name" value="" placeholder="Nombre"/>
+    <input type="text" id="surname" value="" placeholder="Apellido"/>
+     <button id="addButton" onclick="addName (document.getElementById ('name').value, document.getElementById ('surname').value,);">Añade Persona</button>
+    <button id="pollButton" onclick="pollName ();">Consume Persona</button>
+
+    <br/><br/>
+
+    <p id="error" style="color:red"></p> 
+    <div id="list">
+    </div>
+    <script src="ListaOrdenada.js"></script>
+</body>
+</html>
