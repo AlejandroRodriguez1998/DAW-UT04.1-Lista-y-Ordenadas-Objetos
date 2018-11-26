@@ -29,25 +29,26 @@ function pollName (){
 }
 
 /* Objetos de la pagina */
-function Person(name,surname){
-    this.name = name;
+function Person(name,surname){ //Creo la clase persona con sus atributos
+    this.name = name; 
     this.surname = surname;
     this.fullname = function(){
         return this.name + " " + this.surname;
     }
 }
 
-function Lista(){
+function Lista(){ //Creo la clase lista con un array que se llenara de personas
     var list = [];
-    var max_element_lista = 5;
+    var max_element_lista = 5; //Por defecto tiene 5
 
+	//Creo un metodo que permite cambiar el maximo de elementos de la lista
 	this.setMaximo = function(value) { max_element_lista = value; };
 
-	this.isEmpty = function(){
+	this.isEmpty = function(){ //Funcion que comprueba si la lista esta vacia
 		return (list.length === 0); 
 	};
 
-	this.isFull = function (){ //Funcion que comprueba si el array ha llegado al maximo de elementos
+	this.isFull = function (){ //Funcion que comprueba si la lista ha llegado al maximo de elementos
 		return (list.length === max_element_lista);
 	};
 	
@@ -58,20 +59,19 @@ function Lista(){
     //Funcion que añade un nuevo elemento a la lista manteniendo la relación de orden.
     //Devuelve el tamaño de la lista una vez añadido.
     this.add = function(objPerson){
-        //si la lista está llena
-        if(!this.isFull()){
-            if(this.isEmpty()){
+        if(!this.isFull()){ //Si la lista no esta llena
+            if(this.isEmpty()){ //Si la lista esta vacia añado el primer elemento
                 list.unshift(objPerson);
-            }else{
-                //buscamos el indice con un valor mayor superior al dado
+            }else{ //buscamos el indice con un valor mayor superior al dado
                 var mayor = -1;
                 var index = 0;
                 var length = this.size();
 
-                while(mayor == -1 && index < length ){
-                   
+                while(mayor == -1 && index < length ){ 
+                   //Si el apellido es menor aumento el index
                     if((list[index].surname).localeCompare(objPerson.surname) == -1){
-                        index++;
+						index++;
+						//Si son iguales los apellidos busco por el nombre y lo mismo que antes
                     }else if ((list[index].surname).localeCompare(objPerson.surname) == 0){
                         if((list[index].name).localeCompare(objPerson.name) == -1){
                             index++;
@@ -85,15 +85,17 @@ function Lista(){
                 //sustituimos el indice con el nuevo valor
                 list.splice(index,0,objPerson);
             }
-        }
+        }else{ //La exepcion
+			throw "La lista esta llena. No puedes poner elementos sobre ella";
+		}
         //devolvemos 
         return this.size();
     }
 
-    this.get = function(index){ //Funcion que devuelve un numero en la posicion deseada
+    this.get = function(index){ //Funcion que devuelve una persona en la posicion deseada
 		if(index > this.size() || index <= -1){ //Si la posicion es mayor que la longitud del array mando una exepcion
 			throw "El indice esta fuera de los limites de la lista";
-		}else{ //Sino devuelvo el numero de la posicion deseada
+		}else{ //Sino devuelvo la persona de la posicion deseada
 			return list[index].fullname();
 		}
 	};
