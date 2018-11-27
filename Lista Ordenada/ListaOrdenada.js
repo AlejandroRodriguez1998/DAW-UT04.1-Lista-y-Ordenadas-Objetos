@@ -57,7 +57,7 @@ function Lista(){ //Creo la clase lista con un array que se llenara de personas
     };
 
     //Funcion que añade un nuevo elemento a la lista manteniendo la relación de orden.
-    //Devuelve el tamaño de la lista una vez añadido.
+	//Devuelve el tamaño de la lista una vez añadido.
     this.add = function(objPerson){
         if(!this.isFull()){ //Si la lista no esta llena
             if(this.isEmpty()){ //Si la lista esta vacia añado el primer elemento
@@ -208,7 +208,6 @@ function testlist(){
 
 	console.log ("La lista llena: " + list.toString());
 	console.log ("Quiero conseguir el numero de la posicion 3: " + list.get(3));
-
 	console.log ("Esta "+ per1.fullname() + " en la lista: " + list.indexOf(per1));	 	
 
 	console.log ("El primer elemento de la lista: " + list.firstElement());
